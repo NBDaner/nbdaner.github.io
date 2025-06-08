@@ -15,68 +15,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.querySelector('.carousel');
 
     let counter = 0;
-    const size = images[0].clientWidth;
 
-    // 初始化位置
-    carouselSlide.style.transform = `translateX(${-size * counter}px)`;
+    function updateSlide() {
+        const slideWidth = carousel.offsetWidth;
+        carouselSlide.style.transition = 'transform 0.5s ease-in-out';
+        carouselSlide.style.transform = `translateX(${-slideWidth * counter}px)`;
+    }
+
+    // 初始化图片宽度
+    function setSlideWidth() {
+        const slideWidth = carousel.offsetWidth;
+        images.forEach(img => {
+            img.style.width = slideWidth + 'px';
+        });
+        updateSlide();
+    }
+    setSlideWidth();
+    window.addEventListener('resize', setSlideWidth);
 
     // 按钮事件
     nextButton.addEventListener('click', () => {
-        if (counter >= images.length - 1) {
-            counter = -1; // 重置到第一张之前
-        }
-        carouselSlide.style.transition = 'transform 0.5s ease-in-out';
-        counter++;
-        carouselSlide.style.transform = `translateX(${-size * counter}px)`;
-
-        // 如果是最后一张，瞬间跳回第一张
-        if (counter === images.length - 1) {
-            setTimeout(() => {
-                carouselSlide.style.transition = 'none';
-                counter = 0;
-                carouselSlide.style.transform = `translateX(${-size * counter}px)`;
-            }, 500);
-        }
+        counter = (counter + 1) % images.length;
+        updateSlide();
     });
 
     prevButton.addEventListener('click', () => {
-        if (counter <= 0) {
-            counter = images.length; // 跳到最后一张之后
-        }
-        carouselSlide.style.transition = 'transform 0.5s ease-in-out';
-        counter--;
-        carouselSlide.style.transform = `translateX(${-size * counter}px)`;
-
-        // 如果是第一张，瞬间跳回最后一张
-        if (counter === 0) {
-            setTimeout(() => {
-                carouselSlide.style.transition = 'none';
-                counter = images.length - 1;
-                carouselSlide.style.transform = `translateX(${-size * counter}px)`;
-            }, 500);
-        }
+        counter = (counter - 1 + images.length) % images.length;
+        updateSlide();
     });
 
-    // 修复轮播图自动播放功能
+    // 自动轮播功能
     let autoPlayInterval;
-
     function startAutoPlay() {
         autoPlayInterval = setInterval(() => {
-            if (counter >= images.length - 1) {
-                counter = -1; // 重置到第一张之前
-            }
             nextButton.click();
-        }, 3000); // 每3秒切换一次
+        }, 3000);
     }
-
     function stopAutoPlay() {
         clearInterval(autoPlayInterval);
     }
-
-    // 启动自动播放
     startAutoPlay();
-
-    // 鼠标悬停时停止播放，移开时继续播放
     carousel.addEventListener('mouseenter', stopAutoPlay);
     carousel.addEventListener('mouseleave', startAutoPlay);
 });

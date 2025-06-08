@@ -36,12 +36,52 @@ nav .nav-links {
 nav .nav-links li {
     margin-left: 20px;
     position: relative;
+    z-index: 10;
 }
 
 nav .nav-links a {
     color: #fff;
     text-decoration: none;
     font-size: 16px;
+}
+
+/* 修复下拉菜单层级和悬停问题，保证所有下拉和二级菜单可用 */
+nav .nav-links .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #333;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 5px;
+    z-index: 100;
+    min-width: 140px;
+}
+
+nav .nav-links li:hover > .dropdown {
+    display: block;
+}
+
+nav .nav-links .has-submenu {
+    position: relative;
+}
+
+nav .nav-links .submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: #333;
+    min-width: 140px;
+    border-radius: 5px;
+    padding: 10px 0;
+    z-index: 101;
+}
+
+nav .nav-links .has-submenu:hover > .submenu {
+    display: block;
 }
 
 /* 添加下拉菜单的样式 */
@@ -58,19 +98,60 @@ nav .nav-links .dropdown {
     z-index: 1000;
 }
 
-nav .nav-links .dropdown li {
+nav .nav-links .dropdown li,
+nav .nav-links .submenu li {
+    padding: 8px 24px;
     margin: 0;
-    padding: 5px 20px;
+    white-space: nowrap;
+    min-width: 120px;
+    box-sizing: border-box;
+    line-height: 1.6;
+    text-align: left;
 }
 
-nav .nav-links .dropdown a {
+nav .nav-links .dropdown a,
+nav .nav-links .submenu a {
+    display: block;
     color: #fff;
     text-decoration: none;
-    font-size: 14px;
-    display: block;
+    font-size: 15px;
+    transition: background 0.2s, color 0.2s;
 }
 
-nav .nav-links li:hover .dropdown {
+nav .nav-links .dropdown a:hover,
+nav .nav-links .submenu a:hover {
+    background: #007BFF;
+    color: #fff;
+    border-radius: 4px;
+}
+
+nav .nav-links .dropdown {
+    min-width: 140px;
+}
+
+nav .nav-links .submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: #333;
+    min-width: 140px;
+    border-radius: 5px;
+    padding: 10px 0;
+    z-index: 1001;
+}
+
+.nav-links .submenu li {
+    padding: 5px 20px;
+    white-space: nowrap;
+}
+
+.nav-links .submenu a {
+    color: #fff;
+    font-size: 14px;
+}
+
+nav .nav-links .has-submenu:hover > .submenu {
     display: block;
 }
 
@@ -153,10 +234,10 @@ footer {
 
 /* 轮播图样式 */
 .carousel {
-    position: relative;
+    width: 100%;
     max-width: 1200px;
-    height: 500px;
     margin: 20px auto;
+    height: 500px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -164,6 +245,8 @@ footer {
 
 .carousel-slide {
     display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.5s ease-in-out;
 }
 
