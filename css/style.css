@@ -1,0 +1,52 @@
+:root{
+  --bg:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --accent:#c8102e;
+  --accent-dark:#8f061f;
+  --container:1200px;
+}
+*{box-sizing:border-box}
+body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased}
+.container{max-width:var(--container); margin:0 auto; padding:0 20px}
+.site-header{background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); position:sticky; top:0; z-index:40; border-bottom:1px solid #eee}
+.header-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 0}
+.logo{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
+.logo img{width:36px;height:36px}
+.brand{font-weight:600; font-size:18px}
+.nav a{margin-left:22px; color:var(--muted); text-decoration:none}
+.nav .cta{background:transparent; border:1px solid var(--accent); color:var(--accent); padding:8px 14px; border-radius:6px}
+
+.hero{padding:64px 0}
+.hero-inner{display:flex; gap:40px; align-items:center}
+.hero-text{flex:1}
+.hero h1{font-size:42px; margin:0 0 12px}
+.hero p{color:var(--muted); margin:0 0 18px}
+.hero-actions .btn{display:inline-block; padding:12px 18px; border-radius:8px; text-decoration:none; margin-right:12px}
+.btn.primary{background:var(--accent); color:#fff}
+.btn.ghost{border:1px solid #ddd; color:var(--text); background:transparent}
+.hero-visual{width:420px; height:280px; flex:0 0 420px}
+.hero-blob{width:100%;height:100%;border-radius:12px}
+
+.section-title{font-size:26px; margin:16px 0}
+.cards{padding:48px 0}
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.card{background:#fff; border:1px solid #f0f0f0; padding:20px; border-radius:10px}
+.card h3{margin-top:0}
+.card p{color:var(--muted)}
+.card .link{color:var(--accent); text-decoration:none; margin-top:12px; display:inline-block}
+
+.about{padding:40px 0}
+.about-grid{display:grid; grid-template-columns:1fr 320px; gap:24px}
+
+.site-footer{border-top:1px solid #eee; padding:20px 0; color:var(--muted)}
+.footer-inner{display:flex; justify-content:space-between; align-items:center}
+.footer-links a{margin-left:16px; color:var(--muted); text-decoration:none}
+
+@media(max-width:900px){
+  .hero-inner{flex-direction:column}
+  .hero-visual{width:100%;height:180px}
+  .grid{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}
+  .nav a{margin-left:12px}
+}
