@@ -68,3 +68,24 @@ body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvet
   .topbar-inner{padding:6px 10px}
   .lang-toggle{padding:6px 8px;font-size:13px}
 }
+
+/* Carousel */
+.carousel{width:100%;overflow:hidden;position:relative;margin-bottom:28px}
+.carousel-track{display:flex;transition:transform 450ms ease;will-change:transform}
+.carousel-item{flex:0 0 100%;height:480px;background-size:cover;background-position:center}
+.carousel-controls{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;padding:0 16px;pointer-events:none}
+.carousel-controls button{pointer-events:auto;background:rgba(0,0,0,0.55);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.25)}
+.carousel-indicators{position:absolute;left:50%;transform:translateX(-50%);bottom:16px;display:flex;gap:8px}
+.carousel-indicators button{width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,0.5);cursor:pointer}
+.carousel-indicators button.active{background:#fff}
+
+@media(max-width:1200px){
+  .carousel-item{height:420px}
+}
+@media(max-width:900px){
+  .carousel-item{height:320px}
+}
+@media(max-width:600px){
+  .carousel-item{height:200px}
+  .carousel-controls button{width:36px;height:36px;font-size:16px}
+}

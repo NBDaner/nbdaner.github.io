@@ -41,6 +41,22 @@
   </header>
 
   <main>
+    <div class="carousel" id="heroCarousel" aria-roledescription="carousel">
+      <div class="carousel-track">
+        <div class="carousel-item" style="background-image:url('image/red.jpg');" aria-hidden="false" role="img" aria-label="红色幻灯片"></div>
+        <div class="carousel-item" style="background-image:url('image/yellow.jpg');" aria-hidden="true" role="img" aria-label="黄色幻灯片"></div>
+        <div class="carousel-item" style="background-image:url('image/blue.jpg');" aria-hidden="true" role="img" aria-label="蓝色幻灯片"></div>
+      </div>
+      <div class="carousel-controls">
+        <button class="prev" aria-label="Previous slide">&lt;</button>
+        <button class="next" aria-label="Next slide">&gt;</button>
+      </div>
+      <div class="carousel-indicators" role="tablist">
+        <button data-index="0" class="active" aria-label="Slide 1"></button>
+        <button data-index="1" aria-label="Slide 2"></button>
+        <button data-index="2" aria-label="Slide 3"></button>
+      </div>
+    </div>
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
@@ -145,6 +161,44 @@
     })() || document.documentElement.lang || 'zh-CN';
     const active = Array.from(menu.children).find(li=>li.dataset.lang===saved);
     setLang(saved, active?active.textContent: '简体中文');
+  })();
+
+  (function(){
+    const carousel = document.getElementById('heroCarousel');
+    if(!carousel) return;
+    const track = carousel.querySelector('.carousel-track');
+    const items = Array.from(carousel.querySelectorAll('.carousel-item'));
+    const prevBtn = carousel.querySelector('.prev');
+    const nextBtn = carousel.querySelector('.next');
+    const indicators = Array.from(carousel.querySelectorAll('.carousel-indicators [data-index]'));
+    let current = 0;
+    let timer = null;
+    const interval = 4000;
+
+    function goTo(index){
+      index = (index + items.length) % items.length;
+      track.style.transform = `translateX(${ -index * 100 }%)`;
+      items.forEach((it,i)=> it.setAttribute('aria-hidden', String(i!==index)));
+      indicators.forEach((btn,i)=> btn.classList.toggle('active', i===index));
+      current = index;
+    }
+
+    function next(){ goTo(current+1); }
+    function prev(){ goTo(current-1); }
+
+    nextBtn.addEventListener('click', ()=>{ next(); restart(); });
+    prevBtn.addEventListener('click', ()=>{ prev(); restart(); });
+    indicators.forEach(btn=> btn.addEventListener('click', ()=>{ goTo(Number(btn.dataset.index)); restart(); }));
+
+    carousel.addEventListener('mouseenter', ()=>{ stop(); });
+    carousel.addEventListener('mouseleave', ()=>{ start(); });
+
+    function start(){ stop(); timer = setInterval(next, interval); }
+    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+    function restart(){ stop(); start(); }
+
+    goTo(0);
+    start();
   })();
   </script>
 </body>
