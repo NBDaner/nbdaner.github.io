@@ -7,6 +7,24 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="topbar" role="region" aria-label="Language selector">
+    <div class="container topbar-inner">
+      <div class="topbar-left"></div>
+      <div class="topbar-right">
+        <div class="lang-dropdown">
+          <button class="lang-toggle" id="langToggle" aria-haspopup="true" aria-expanded="false">
+            <span class="label">简体中文</span>
+            <span class="arrow">▾</span>
+          </button>
+          <ul class="lang-menu" id="langMenu" aria-label="选择语言">
+            <li data-lang="zh-CN" class="active">简体中文</li>
+            <li data-lang="en">English</li>
+            <li data-lang="ja">日本語</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="#">
@@ -92,5 +110,42 @@
       </div>
     </div>
   </footer>
+  <script>
+  (function(){
+    const toggle = document.getElementById('langToggle');
+    const menu = document.getElementById('langMenu');
+    const label = toggle.querySelector('.label');
+    const storageKey = 'siteLang';
+    function setLang(lang, text){
+      label.textContent = text;
+      document.documentElement.lang = lang;
+      Array.from(menu.children).forEach(li => li.classList.toggle('active', li.dataset.lang===lang));
+      try{ localStorage.setItem(storageKey, lang); }catch(e){}
+    }
+    toggle.addEventListener('click', function(e){
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('open', !expanded);
+    });
+    menu.addEventListener('click', function(e){
+      const li = e.target.closest('li');
+      if(!li) return;
+      setLang(li.dataset.lang, li.textContent);
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+    document.addEventListener('click', function(e){
+      if(!toggle.contains(e.target) && !menu.contains(e.target)){
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    });
+    const saved = (function(){
+      try{return localStorage.getItem(storageKey);}catch(e){return null}
+    })() || document.documentElement.lang || 'zh-CN';
+    const active = Array.from(menu.children).find(li=>li.dataset.lang===saved);
+    setLang(saved, active?active.textContent: '简体中文');
+  })();
+  </script>
 </body>
 </html>
