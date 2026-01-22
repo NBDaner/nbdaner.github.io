@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NBDANER</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="topbar" role="region" aria-label="Language selector">
+    <div class="container topbar-inner">
+      <div class="topbar-left"></div>
+      <div class="topbar-right">
+        <div class="lang-dropdown">
+          <button class="lang-toggle" id="langToggle" aria-haspopup="true" aria-expanded="false">
+            <span class="label">简体中文</span>
+            <span class="arrow">▾</span>
+          </button>
+          <ul class="lang-menu" id="langMenu" aria-label="选择语言">
+            <li><a href="index.html" data-lang="zh-CN" class="active">简体中文</a></li>
+            <li><a href="../en/index.html" data-lang="en">English</a></li>
+            <li><a href="../ja/index.html" data-lang="ja">日本語</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 以下内容与原 index.html 相同，已调整资源路径 -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#">
+        <img src="../../assets/logo.svg" alt="Logo">
+        <span class="brand">nbdaner</span>
+      </a>
+      <nav class="nav">
+        <a href="#products">产品</a>
+        <a href="#solutions">解决方案</a>
+        <a href="#about">关于我们</a>
+        <a class="cta" href="#contact">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="carousel" id="heroCarousel" aria-roledescription="carousel">
+      <div class="carousel-track">
+        <div class="carousel-item" style="background-image:url('../../image/red.jpg');" aria-hidden="false" role="img" aria-label="红色幻灯片"></div>
+        <div class="carousel-item" style="background-image:url('../../image/yellow.jpg');" aria-hidden="true" role="img" aria-label="黄色幻灯片"></div>
+        <div class="carousel-item" style="background-image:url('../../image/blue.jpg');" aria-hidden="true" role="img" aria-label="蓝色幻灯片"></div>
+      </div>
+      <div class="carousel-controls">
+        <button class="prev" aria-label="Previous slide">&lt;</button>
+        <button class="next" aria-label="Next slide">&gt;</button>
+      </div>
+      <div class="carousel-indicators" role="tablist">
+        <button data-index="0" class="active" aria-label="Slide 1"></button>
+        <button data-index="1" aria-label="Slide 2"></button>
+        <button data-index="2" aria-label="Slide 3"></button>
+      </div>
+    </div>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>NBDANER</h1>
+          <p>我们专注于</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#products">了解</a>
+            <a class="btn ghost" href="#solutions">查看</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 600 400" class="hero-blob">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0%" stop-color="#ff6b6b" />
+                <stop offset="100%" stop-color="#b3002d" />
+              </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" rx="20" fill="url(#g1)" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="cards container">
+      <h2 class="section-title">核心</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>云</h3>
+          <p>高可靠性。</p>
+          <a class="link" href="#">了解详情 →</a>
+        </article>
+        <article class="card">
+          <h3>网络</h3>
+          <p>面</p>
+          <a class="link" href="#">了解详情 →</a>
+        </article>
+        <article class="card">
+          <h3>智能</h3>
+          <p>美学</p>
+          <a class="link" href="#">了解详情 →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="container about">
+      <div class="about-grid">
+        <div>
+          <h2>关于我们</h2>
+          <p>我们是</p>
+        </div>
+        <div>
+          <h3>愿景</h3>
+          <p>可持续发展。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© 2026 nbdaner。保留所有权利。</div>
+      <div class="footer-links">
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+        <a href="#contact">联系我们</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+  (function(){
+    const toggle = document.getElementById('langToggle');
+    const menu = document.getElementById('langMenu');
+    const label = toggle.querySelector('.label');
+    const storageKey = 'siteLang';
+    function setLang(lang, text){
+      label.textContent = text;
+      document.documentElement.lang = lang;
+      Array.from(menu.querySelectorAll('a')).forEach(a => a.classList.toggle('active', a.dataset.lang===lang));
+      try{ localStorage.setItem(storageKey, lang); }catch(e){}
+    }
+    toggle.addEventListener('click', function(e){
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('open', !expanded);
+    });
+    menu.addEventListener('click', function(e){
+      const a = e.target.closest('a');
+      if(!a) return;
+      const lang = a.dataset.lang;
+      setLang(lang, a.textContent);
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+      const href = a.getAttribute('href');
+      if(href && href !== '#'){
+        window.location.href = a.href;
+      }
+    });
+    document.addEventListener('click', function(e){
+      if(!toggle.contains(e.target) && !menu.contains(e.target)){
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    });
+    const saved = (function(){
+      try{return localStorage.getItem(storageKey);}catch(e){return null}
+    })() || document.documentElement.lang || 'zh-CN';
+    const active = Array.from(menu.querySelectorAll('a')).find(a=>a.dataset.lang===saved);
+    setLang(saved, active?active.textContent: '简体中文');
+  })();
+
+  (function(){
+    const carousel = document.getElementById('heroCarousel');
+    if(!carousel) return;
+    const track = carousel.querySelector('.carousel-track');
+    const items = Array.from(carousel.querySelectorAll('.carousel-item'));
+    const prevBtn = carousel.querySelector('.prev');
+    const nextBtn = carousel.querySelector('.next');
+    const indicators = Array.from(carousel.querySelectorAll('.carousel-indicators [data-index]'));
+    let current = 0;
+    let timer = null;
+    const interval = 4000;
+
+    function goTo(index){
+      index = (index + items.length) % items.length;
+      track.style.transform = `translateX(${ -index * 100 }%)`;
+      items.forEach((it,i)=> it.setAttribute('aria-hidden', String(i!==index)));
+      indicators.forEach((btn,i)=> btn.classList.toggle('active', i===index));
+      current = index;
+    }
+
+    function next(){ goTo(current+1); }
+    function prev(){ goTo(current-1); }
+
+    nextBtn.addEventListener('click', ()=>{ next(); restart(); });
+    prevBtn.addEventListener('click', ()=>{ prev(); restart(); });
+    indicators.forEach(btn=> btn.addEventListener('click', ()=>{ goTo(Number(btn.dataset.index)); restart(); }));
+
+    carousel.addEventListener('mouseenter', ()=>{ stop(); });
+    carousel.addEventListener('mouseleave', ()=>{ start(); });
+
+    function start(){ stop(); timer = setInterval(next, interval); }
+    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+    function restart(){ stop(); start(); }
+
+    goTo(0);
+    start();
+  })();
+  </script>
+</body>
+</html>
