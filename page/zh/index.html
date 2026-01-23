@@ -36,45 +36,45 @@
         <div class="nav-item dropdown">
           <a href="#module1">模块一</a>
           <div class="submenu" aria-hidden="true">
-            <a href="#m1c1">内容1</a>
-            <a href="#m1c2">内容2</a>
-            <a href="#m1c3">内容3</a>
-            <a href="#m1c4">内容4</a>
-            <a href="#m1c5">内容5</a>
-            <a href="#m1c6">内容6</a>
+            <a href="#m1c1">内容1.1</a>
+            <a href="#m1c2">内容1.2</a>
+            <a href="#m1c3">内容1.3</a>
+            <a href="#m1c4">内容1.4</a>
+            <a href="#m1c5">内容1.5</a>
+            <a href="#m1c6">内容1.6</a>
           </div>
         </div>
         <div class="nav-item dropdown">
           <a href="#module2">模块二</a>
           <div class="submenu" aria-hidden="true">
-            <a href="#m2c1">内容1</a>
-            <a href="#m2c2">内容2</a>
-            <a href="#m2c3">内容3</a>
-            <a href="#m2c4">内容4</a>
-            <a href="#m2c5">内容5</a>
-            <a href="#m2c6">内容6</a>
+            <a href="#m2c1">内容2.1</a>
+            <a href="#m2c2">内容2.2</a>
+            <a href="#m2c3">内容2.3</a>
+            <a href="#m2c4">内容2.4</a>
+            <a href="#m2c5">内容2.5</a>
+            <a href="#m2c6">内容2.6</a>
           </div>
         </div>
         <div class="nav-item dropdown">
           <a href="#module3">模块三</a>
           <div class="submenu" aria-hidden="true">
-            <a href="#m3c1">内容1</a>
-            <a href="#m3c2">内容2</a>
-            <a href="#m3c3">内容3</a>
-            <a href="#m3c4">内容4</a>
-            <a href="#m3c5">内容5</a>
-            <a href="#m3c6">内容6</a>
+            <a href="#m3c1">内容3.1</a>
+            <a href="#m3c2">内容3.2</a>
+            <a href="#m3c3">内容3.3</a>
+            <a href="#m3c4">内容3.4</a>
+            <a href="#m3c5">内容3.5</a>
+            <a href="#m3c6">内容3.6</a>
           </div>
         </div>
         <div class="nav-item dropdown">
           <a href="#module4">模块四</a>
           <div class="submenu" aria-hidden="true">
-            <a href="#m4c1">内容1</a>
-            <a href="#m4c2">内容2</a>
-            <a href="#m4c3">内容3</a>
-            <a href="#m4c4">内容4</a>
-            <a href="#m4c5">内容5</a>
-            <a href="#m4c6">内容6</a>
+            <a href="#m4c1">内容4.1</a>
+            <a href="#m4c2">内容4.2</a>
+            <a href="#m4c3">内容4.3</a>
+            <a href="#m4c4">内容4.4</a>
+            <a href="#m4c5">内容4.5</a>
+            <a href="#m4c6">内容4.6</a>
           </div>
         </div>
         <a href="#about">关于我们</a>
@@ -250,25 +250,9 @@
   })();
   </script>
   <script>
-  // Dropdown click toggle for touch/mobile
-  (function(){
-    const dropdownLinks = document.querySelectorAll('.nav .dropdown > a');
-    dropdownLinks.forEach(a=>{
-      a.addEventListener('click', function(e){
-        const parent = this.parentElement;
-        if(window.innerWidth <= 900){
-          e.preventDefault();
-          parent.classList.toggle('open');
-        }
-      });
-    });
-    document.addEventListener('click', function(e){
-      if(!e.target.closest('.nav')){
-        document.querySelectorAll('.nav .dropdown.open').forEach(d=> d.classList.remove('open'));
-      }
-    });
-  })();
+  // 鼠标悬停逻辑保留，上面的交互由外部脚本增强（点击切换）
   </script>
+  <script src="../../assets/js/dropdown.js"></script>
 
   <script>
   // 将模块1-4下拉宽度贴合页面容器（高度不变）。

@@ -97,7 +97,9 @@ body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvet
 .nav .submenu{position:absolute;top:calc(100% + 8px);left:0;min-width:260px;background:#fff;color:var(--text);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.12);padding:12px;display:none;z-index:80}
 .nav .submenu a{display:block;padding:8px 10px;color:var(--text);text-decoration:none;border-radius:6px}
 .nav .submenu a:hover{background:#f5f5f5}
-.nav .dropdown:hover .submenu{display:block}
+
+/* 点击后也显示下拉（在桌面和移动端都适用） */
+.nav .dropdown.open .submenu{display:block}
 
 /* 保持下拉高度不变，允许滚动 */
 .nav .submenu{max-height:320px;overflow-y:auto;box-sizing:border-box}
@@ -110,6 +112,27 @@ body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvet
   min-width:unset;
   left:auto;
   right:auto;
+}
+
+/* 为模块1-4 添加 caret 符号：收起时指向上（∧），展开时旋转到向下 */
+.nav .dropdown:nth-of-type(-n+4) > a{display:inline-flex;align-items:center;gap:6px}
+.nav .dropdown:nth-of-type(-n+4) > a::after{
+  content:"∨";
+  display:inline-block;
+  font-size:12px;
+  line-height:1;
+  margin-left:6px;
+  transform-origin:center;
+  transition:transform 180ms ease;
+}
+.nav .dropdown:nth-of-type(-n+4).open > a::after{
+  content:"∧";
+  display:inline-block;
+  font-size:12px;
+  line-height:1;
+  margin-left:6px;
+  transform-origin:center;
+  transition:transform 180ms ease;
 }
 
 /* Responsive: make submenu behave as accordion on small screens */
