@@ -32,10 +32,50 @@
         <span class="brand">nbdaner</span>
       </a>
       <nav class="nav">
-        <a href="#module1">Module 1</a>
-        <a href="#module2">Module 2</a>
-        <a href="#module3">Module 3</a>
-        <a href="#module4">Module 4</a>
+        <div class="nav-item dropdown">
+          <a href="#module1">Module 1</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m1c1">Content 1</a>
+            <a href="#m1c2">Content 2</a>
+            <a href="#m1c3">Content 3</a>
+            <a href="#m1c4">Content 4</a>
+            <a href="#m1c5">Content 5</a>
+            <a href="#m1c6">Content 6</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a href="#module2">Module 2</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m2c1">Content 1</a>
+            <a href="#m2c2">Content 2</a>
+            <a href="#m2c3">Content 3</a>
+            <a href="#m2c4">Content 4</a>
+            <a href="#m2c5">Content 5</a>
+            <a href="#m2c6">Content 6</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a href="#module3">Module 3</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m3c1">Content 1</a>
+            <a href="#m3c2">Content 2</a>
+            <a href="#m3c3">Content 3</a>
+            <a href="#m3c4">Content 4</a>
+            <a href="#m3c5">Content 5</a>
+            <a href="#m3c6">Content 6</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a href="#module4">Module 4</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m4c1">Content 1</a>
+            <a href="#m4c2">Content 2</a>
+            <a href="#m4c3">Content 3</a>
+            <a href="#m4c4">Content 4</a>
+            <a href="#m4c5">Content 5</a>
+            <a href="#m4c6">Content 6</a>
+          </div>
+        </div>
         <a href="#about">About</a>
         <a class="cta" href="#contact">Contact</a>
       </nav>
@@ -206,6 +246,25 @@
 
     goTo(0);
     start();
+  })();
+  </script>
+  <script>
+  (function(){
+    const dropdownLinks = document.querySelectorAll('.nav .dropdown > a');
+    dropdownLinks.forEach(a=>{
+      a.addEventListener('click', function(e){
+        const parent = this.parentElement;
+        if(window.innerWidth <= 900){
+          e.preventDefault();
+          parent.classList.toggle('open');
+        }
+      });
+    });
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.nav')){
+        document.querySelectorAll('.nav .dropdown.open').forEach(d=> d.classList.remove('open'));
+      }
+    });
   })();
   </script>
 </body>

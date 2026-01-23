@@ -32,10 +32,50 @@
         <span class="brand">nbdaner</span>
       </a>
       <nav class="nav">
-        <a href="#module1">モジュール1</a>
-        <a href="#module2">モジュール2</a>
-        <a href="#module3">モジュール3</a>
-        <a href="#module4">モジュール4</a>
+        <div class="nav-item dropdown">
+          <a href="#module1">モジュール1</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m1c1">コンテンツ1</a>
+            <a href="#m1c2">コンテンツ2</a>
+            <a href="#m1c3">コンテンツ3</a>
+            <a href="#m1c4">コンテンツ4</a>
+            <a href="#m1c5">コンテンツ5</a>
+            <a href="#m1c6">コンテンツ6</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a href="#module2">モジュール2</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m2c1">コンテンツ1</a>
+            <a href="#m2c2">コンテンツ2</a>
+            <a href="#m2c3">コンテンツ3</a>
+            <a href="#m2c4">コンテンツ4</a>
+            <a href="#m2c5">コンテンツ5</a>
+            <a href="#m2c6">コンテンツ6</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a href="#module3">モジュール3</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m3c1">コンテンツ1</a>
+            <a href="#m3c2">コンテンツ2</a>
+            <a href="#m3c3">コンテンツ3</a>
+            <a href="#m3c4">コンテンツ4</a>
+            <a href="#m3c5">コンテンツ5</a>
+            <a href="#m3c6">コンテンツ6</a>
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <a href="#module4">モジュール4</a>
+          <div class="submenu" aria-hidden="true">
+            <a href="#m4c1">コンテンツ1</a>
+            <a href="#m4c2">コンテンツ2</a>
+            <a href="#m4c3">コンテンツ3</a>
+            <a href="#m4c4">コンテンツ4</a>
+            <a href="#m4c5">コンテンツ5</a>
+            <a href="#m4c6">コンテンツ6</a>
+          </div>
+        </div>
         <a href="#about">会社情報</a>
         <a class="cta" href="#contact">お問い合わせ</a>
       </nav>
@@ -206,6 +246,25 @@
 
     goTo(0);
     start();
+  })();
+  </script>
+  <script>
+  (function(){
+    const dropdownLinks = document.querySelectorAll('.nav .dropdown > a');
+    dropdownLinks.forEach(a=>{
+      a.addEventListener('click', function(e){
+        const parent = this.parentElement;
+        if(window.innerWidth <= 900){
+          e.preventDefault();
+          parent.classList.toggle('open');
+        }
+      });
+    });
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.nav')){
+        document.querySelectorAll('.nav .dropdown.open').forEach(d=> d.classList.remove('open'));
+      }
+    });
   })();
   </script>
 </body>
