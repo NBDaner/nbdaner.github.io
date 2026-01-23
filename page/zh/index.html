@@ -269,5 +269,70 @@
     });
   })();
   </script>
+
+  <script>
+  // 将模块1-4下拉宽度贴合页面容器（高度不变）。
+  (function(){
+    const header = document.querySelector('.site-header');
+    const headerContainer = document.querySelector('.site-header .container');
+    if(!header || !headerContainer) return;
+
+    const dropdowns = Array.from(document.querySelectorAll('.nav .dropdown')).slice(0,4);
+
+    function setFullWidth(submenu){
+      const headerRect = header.getBoundingClientRect();
+      // 固定定位，顶端在 header 底部
+      submenu.style.position = 'fixed';
+      submenu.style.top = (headerRect.bottom) + 'px';
+      submenu.style.left = '0px';
+      submenu.style.width = window.innerWidth + 'px';
+      submenu.style.boxSizing = 'border-box';
+      submenu.style.right = '0px';
+      submenu.style.margin = '0';
+      submenu.style.zIndex = 99999;
+    }
+
+    function resetPosition(submenu){
+      submenu.style.position = '';
+      submenu.style.top = '';
+      submenu.style.left = '';
+      submenu.style.width = '';
+      submenu.style.right = '';
+      submenu.style.margin = '';
+      submenu.style.zIndex = '';
+    }
+
+    function adjustOne(drop){
+      const submenu = drop.querySelector('.submenu');
+      if(!submenu) return;
+      if(window.innerWidth > 900){
+        setFullWidth(submenu);
+      }else{
+        resetPosition(submenu);
+      }
+    }
+
+    function adjustAll(){
+      dropdowns.forEach(adjustOne);
+    }
+
+    // 在需要打开时和窗口变化时调整
+    dropdowns.forEach(drop=>{
+      const submenu = drop.querySelector('.submenu');
+      if(!submenu) return;
+      drop.addEventListener('mouseenter', ()=>{ if(window.innerWidth>900) setFullWidth(submenu); });
+      // 当在移动端通过 class=open 展开时确保位置复位为非 fixed
+      const obs = new MutationObserver(()=>{ if(drop.classList.contains('open')) adjustOne(drop); });
+      obs.observe(drop, { attributes:true, attributeFilter:['class'] });
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', ()=>{ clearTimeout(resizeTimer); resizeTimer = setTimeout(adjustAll, 100); });
+    window.addEventListener('scroll', ()=>{ if(window.innerWidth>900){ dropdowns.forEach(d=>{ const s = d.querySelector('.submenu'); if(s && s.style.position==='fixed') s.style.top = (header.getBoundingClientRect().bottom) + 'px'; }); } });
+
+    // 初始调整
+    adjustAll();
+  })();
+  </script>
 </body>
 </html>
